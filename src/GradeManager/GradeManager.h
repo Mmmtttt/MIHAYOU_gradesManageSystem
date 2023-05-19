@@ -3,12 +3,15 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 #include "Student/Student.h"
 
 class GradeManager {
 public:
     void inputGradesFromConsole();
-    void inputGradesFromFile(const std::string& filename);
+    void loadGradesFromFile(const std::string& filename);
+    void updateGradesFromFile(const std::string& filename);
     int queryMaxScore() const;
     int queryMinScore() const;
     void sortByChineseScore();

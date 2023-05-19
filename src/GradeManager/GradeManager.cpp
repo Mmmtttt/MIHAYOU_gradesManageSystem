@@ -2,15 +2,64 @@
 #include <algorithm>
 #include <iostream>
 
-void GradeManager::inputGradesFromConsole() {
-    // 根据具体需求实现从命令行输入成绩的逻辑
-    // 可以使用 std::cin 获取输入，并创建对应的学生对象并添加到 students 容器中
+// 在 GradeManager 类中添加成员函数 updateGradesFromFile
+void GradeManager::updateGradesFromFile(const std::string& filename) {
+    // 调用 loadGradesFromFile 函数加载成绩数据并更新学生的成绩
+    loadGradesFromFile(filename);
 }
 
-void GradeManager::inputGradesFromFile(const std::string& filename) {
-    // 根据具体需求实现从文件读取成绩的逻辑
-    // 可以使用文件流(std::ifstream)读取文件内容，并创建对应的学生对象并添加到 students 容器中
+// 创建新的 loadGradesFromFile 函数用于从txt文件中加载成绩数据
+void GradeManager::loadGradesFromFile(const std::string& filename) {
+    std::ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        std::cout << "无法打开文件 " << filename << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::getline(inputFile, line);  // 读取表头
+    // 假设表头为 "姓名 语文 数学 英语"
+
+    while (std::getline(inputFile, line)) {
+        std::istringstream iss(line);
+        std::string name;
+        int chinese, math, english;
+
+        if (!(iss >> name >> chinese >> math >> english)) {
+            std::cout << "文件格式错误：" << line << std::endl;
+            continue;
+        }
+
+        // 处理学生的某课成绩可能为空的情况
+        // if (chinese == -1) {
+        //     chinese = 0;  // 将缺省成绩置为0或其他默认值
+        // }
+        // if (math == -1) {
+        //     math = 0;  // 将缺省成绩置为0或其他默认值
+        // }
+        // if (english == -1) {
+        //     english = 0;  // 将缺省成绩置为0或其他默认值
+        // }
+
+        // 查找学生并更新成绩
+        bool found = false;
+        for (auto& student : students) {
+            if (student.getName() == name) {
+                student.setScore("语文", chinese);
+                student.setScore("数学", math);
+                student.setScore("英语", english);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            std::cout << "找不到学生：" << name << std::endl;
+        }
+    }
+
+    inputFile.close();
 }
+
 
 int GradeManager::queryMaxScore() const {
     int maxScore = -1;

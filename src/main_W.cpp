@@ -36,12 +36,14 @@ int main() {
     //void* libHandle = nullptr;
     HMODULE libraryHandle1 = nullptr;
     HMODULE libraryHandle2 = nullptr;
-    std::unique_ptr<PluginInterface> temp_obj;
+    std::unique_ptr<PluginInterface> temp_obj1;
+    std::unique_ptr<PluginInterface> temp_obj2;
     
     GradeManager gradeManager;
 
     while (true) {
         int choice;
+        std::cout << std::endl<< std::endl<< std::endl<< std::endl;
         std::cout << "1. 加载“寻找缺省数据模块”" << std::endl;
         std::cout << "2. 卸载“寻找缺省数据模块”" << std::endl;
         std::cout << "3. 加载“定时器模块”" << std::endl;
@@ -55,7 +57,11 @@ int main() {
         std::cout << "11. 输入成绩" << std::endl;
         std::cout << "0. Quit" << std::endl;
         std::cout << "输入选项： ";
+        std::cout << std::endl;
+
         std::cin >> choice;
+
+        std::cout << std::endl;
 
         switch (choice) {
             case 1: {
@@ -68,8 +74,8 @@ int main() {
                 } else {
                     //Plugin_ptr create_Plugin =Plugin_ptr(dlsym(libHandle, "create_Plugin"));
                     Plugin_ptr create_Plugin =Plugin_ptr(GetProcAddress(libraryHandle1, "create_Plugin"));
-                    temp_obj = create_Plugin();
-                    if(temp_obj){
+                    temp_obj1 = create_Plugin();
+                    if(temp_obj1){
                         std::cout << "libdefaultdata.dll loaded." << std::endl;
                         
                     }
@@ -85,7 +91,7 @@ int main() {
                     FreeLibrary(libraryHandle1);
                     //libHandle=nullptr;
                     libraryHandle1=nullptr;
-                    temp_obj.release();
+                    temp_obj1.release();
                     std::cout << "libdefaultdata.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libdefaultdata.dll is not loaded." << std::endl;
@@ -102,8 +108,8 @@ int main() {
                 } else {
                     //Plugin_ptr create_Plugin =Plugin_ptr(dlsym(libHandle, "create_Plugin"));
                     Plugin_ptr create_Plugin =Plugin_ptr(GetProcAddress(libraryHandle2, "create_Plugin"));
-                    temp_obj = create_Plugin();
-                    if(temp_obj){
+                    temp_obj2 = create_Plugin();
+                    if(temp_obj2){
                         std::cout << "libtimer.dll loaded." << std::endl;
                         
                     }
@@ -119,7 +125,7 @@ int main() {
                     FreeLibrary(libraryHandle2);
                     libraryHandle2=nullptr;
                     //libHandle=nullptr;
-                    temp_obj.release();
+                    temp_obj2.release();
                     std::cout << "libtimer.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libtimer.dll is not loaded." << std::endl;
@@ -127,18 +133,18 @@ int main() {
                 break;
             }
             case 5: {
-                if (libraryHandle1) {
-                    temp_obj->execute();
+                if (temp_obj1) {
+                    temp_obj1->execute();
                 } else {
-                    std::cout << "No library is loaded." << std::endl;
+                    std::cout << "libdefaultdata.dll is loaded." << std::endl;
                 }
                 break;
             }
             case 6: {
-                if (temp_obj) {
-                    temp_obj->execute();
+                if (temp_obj2) {
+                    temp_obj2->execute();
                 } else {
-                    std::cout << "No library is loaded." << std::endl;
+                    std::cout << "libtimer.dll is loaded." << std::endl;
                 }
                 break;
             }
@@ -148,7 +154,7 @@ int main() {
                 break;
             }
             case 8: {
-                std::cout << "按语文成绩排序：" << std::endl;
+                std::cout << "按成绩排序：" << std::endl;
                 gradeManager.sortByChineseScore();
                 gradeManager.displayGrades();
                 break;
@@ -172,7 +178,7 @@ int main() {
             }
             case 11: {
                 std::cout << "输入成绩：" << std::endl;
-                gradeManager.inputGradesFromConsole();
+                gradeManager.loadGradesFromFile("../grades.txt");
                 break;
             }
             case 0:
