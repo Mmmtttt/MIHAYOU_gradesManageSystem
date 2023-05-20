@@ -1,6 +1,6 @@
 #include "GradeManager.h"
 #include <algorithm>
-#include <iostream>
+
 
 
 void GradeManager::inputGradesFromConsole() {
@@ -39,9 +39,9 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
     std::string line;
     std::getline(inputFile, line);  // 读取表头
     // 假设表头为 "姓名 语文 数学 英语"
-    std::vector<std::string> objects;
     std::istringstream stream(line);
     std::string object;
+    objects.clear();
     while (stream >> object) {
         objects.push_back(object);
     }
@@ -144,7 +144,7 @@ void GradeManager::sortByScore(const std::string& object) {
 }
 
 void GradeManager::displayGrades(){
-    std::ofstream outputFile("../grades.txt", std::ofstream::trunc); // 清空文件内容并打开文件用于写入
+    std::ofstream outputFile(storeFile, std::ofstream::trunc); // 清空文件内容并打开文件用于写入
     if (!outputFile.is_open()) {
         std::cout << "无法打开文件 ../grades.txt" << std::endl;
         return;
@@ -234,4 +234,8 @@ void GradeManager::InputGradesMenu(Student& student) {
         scorePair.second = score;
     
     }
+}
+
+std::vector<Student> GradeManager::getStudents() const {
+    return students;
 }

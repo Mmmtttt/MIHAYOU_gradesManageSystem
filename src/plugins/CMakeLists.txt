@@ -3,10 +3,16 @@ add_library(DefaultDataPlugin SHARED
     DefaultDataPlugin/DefaultDataPlugin.h
 )
 
+# 将插件和GradeManager库链接在一起
+target_link_libraries(DefaultDataPlugin GradeManager)
+
 add_library(TimerPlugin SHARED
     TimerPlugin/TimerPlugin.cpp
     TimerPlugin/TimerPlugin.h
 )
+
+# 将插件和GradeManager库链接在一起
+target_link_libraries(TimerPlugin GradeManager)
 
 set_target_properties(DefaultDataPlugin PROPERTIES OUTPUT_NAME "defaultdata")
 set_target_properties(TimerPlugin PROPERTIES OUTPUT_NAME "timer")

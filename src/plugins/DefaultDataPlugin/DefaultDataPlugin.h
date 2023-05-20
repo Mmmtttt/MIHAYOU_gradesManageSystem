@@ -6,8 +6,8 @@
 
 class DefaultDataPlugin : public PluginInterface {
 public:
-    //std::string getPluginName() const override;
-    void execute() override;
+    void getDfaultData(GradeManager*) const ;
+    void execute(GradeManager*) override;
 };
 
 extern "C" std::unique_ptr<PluginInterface> create_Plugin() {

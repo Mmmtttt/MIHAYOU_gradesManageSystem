@@ -9,7 +9,11 @@
 
 class TimerPlugin : public PluginInterface{
 public:
+    TimerPlugin() = default;
     TimerPlugin(int intervalInSeconds, std::function<void()> callback);
+    ~TimerPlugin(){
+        stop();
+    }
 
     void start();
     void stop();
@@ -21,7 +25,7 @@ private:
     bool running;
 
     void timerLoop();
-    void execute() override;
+    void execute(GradeManager*) override;
 };
 
 extern "C" std::unique_ptr<PluginInterface> create_Plugin() {

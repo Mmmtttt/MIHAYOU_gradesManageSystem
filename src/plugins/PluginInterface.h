@@ -1,9 +1,11 @@
 #pragma once
 
 #include <memory>
+#include "../GradeManager/GradeManager.h"
+
 class PluginInterface {
 public:
     virtual ~PluginInterface() {}
 
-    virtual void execute() = 0;
+    virtual void execute(GradeManager*) = 0;
 };

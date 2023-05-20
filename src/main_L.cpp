@@ -4,6 +4,8 @@
 //#include <windows.h>
 #include "./plugins/PluginInterface.h"
 
+#define inputFile "../input.txt"
+
 // int main() {
 //     GradeManager gradeManager;
 
@@ -41,6 +43,7 @@ int main() {
     std::unique_ptr<PluginInterface> temp_obj2;
     
     GradeManager gradeManager;
+    gradeManager.loadGradesFromFile(storeFile);
 
     while (true) {
         int choice;
@@ -90,7 +93,7 @@ int main() {
                     dlclose(libraryHandle1);
                     // FreeLibrary(libraryHandle1);
                     libraryHandle1=nullptr;
-                    temp_obj1.release();
+                    temp_obj1.reset();
                     std::cout << "libdefaultdata.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libdefaultdata.dll is not loaded." << std::endl;
@@ -122,7 +125,7 @@ int main() {
                     dlclose(libraryHandle2);
                     // FreeLibrary(libraryHandle2);
                     libraryHandle2=nullptr;
-                    temp_obj2.release();
+                    temp_obj2.reset();
                     std::cout << "libtimer.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libtimer.dll is not loaded." << std::endl;
@@ -131,7 +134,7 @@ int main() {
             }
             case 5: {
                 if (temp_obj1) {
-                    temp_obj1->execute();
+                    temp_obj1->execute(&gradeManager);
                 } else {
                     std::cout << "libdefaultdata.dll is not loaded." << std::endl;
                 }
@@ -139,26 +142,18 @@ int main() {
             }
             case 6: {
                 if (temp_obj2) {
-                    temp_obj2->execute();
+                    temp_obj2->execute(&gradeManager);
                 } else {
                     std::cout << "libtimer.dll is not loaded." << std::endl;
                 }
                 break;
             }
             case 7:  {               
-                for(auto object:default_scores){
-                    std::cout << object.first << ": ";
-                    std::cout << "最高分：" << gradeManager.queryMaxScore(object.first) << std::endl;
-                    std::cout << "最低分：" << gradeManager.queryMinScore(object.first) << std::endl;
-                }
+                gradeManager.queryMaxAndMin();
                 break;
             }
             case 8: {
-                std::cout << "按成绩排序,请输入科目" ;
-                std::string subject;
-                std::cin >> subject;
-                std::cout <<std::endl;
-                gradeManager.sortByScore(subject);
+                gradeManager.sortByScores();
                 //gradeManager.displayGrades();
                 break;
             }
@@ -183,7 +178,7 @@ int main() {
                     gradeManager.displayGrades();
                 }
                 else if(choice==2)
-                    gradeManager.loadGradesFromFile("../grades.txt");
+                    gradeManager.loadGradesFromFile(inputFile);
                 break;
             }
             case 12: {

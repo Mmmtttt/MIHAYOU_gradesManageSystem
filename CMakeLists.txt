@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 添加可执行文件
 add_executable(GradeManagementSystem
-  src/main_L.cpp
+  src/main_W.cpp
 )
 
 # 设置构建输出路径

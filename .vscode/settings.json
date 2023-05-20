@@ -41,6 +41,7 @@
         "system_error": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
+        //"terminal encoding": "UTF-8",
         "xfacet": "cpp",
         "xiosbase": "cpp",
         "xlocale": "cpp",
