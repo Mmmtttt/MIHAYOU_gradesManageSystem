@@ -44,7 +44,6 @@ int main() {
 
     while (true) {
         int choice;
-        std::cout << std::endl<< std::endl;
         std::cout << "1. 加载“寻找缺省数据模块”" << std::endl;
         std::cout << "2. 卸载“寻找缺省数据模块”" << std::endl;
         std::cout << "3. 加载“定时器模块”" << std::endl;
@@ -56,6 +55,7 @@ int main() {
         std::cout << "9. 各科目平均分" << std::endl;
         std::cout << "10. 修改成绩" << std::endl;
         std::cout << "11. 输入成绩" << std::endl;
+        std::cout << "12. 显示所有信息"<<std::endl;
         std::cout << "0. Quit" << std::endl;
         std::cout << "输入选项： ";
         std::cout << std::endl;
@@ -186,11 +186,18 @@ int main() {
                     gradeManager.loadGradesFromFile("../grades.txt");
                 break;
             }
+            case 12: {
+                gradeManager.displayGrades();
+                break;
+            }
             case 0:
                 return 0;
             default:
                 std::cout << "请重新输入." << std::endl;
         }
+        getchar();
+        getchar();
+        system("clear");
     }
 }
 

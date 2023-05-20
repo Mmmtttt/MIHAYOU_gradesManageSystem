@@ -39,6 +39,13 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
     std::string line;
     std::getline(inputFile, line);  // 读取表头
     // 假设表头为 "姓名 语文 数学 英语"
+    std::vector<std::string> objects;
+    std::istringstream stream(line);
+    std::string object;
+    while (stream >> object) {
+        objects.push_back(object);
+    }
+    objects.erase(objects.begin());  // 删除姓名
 
     std::vector<std::string> updatedStudents;
     std::vector<std::string> addedStudents;
@@ -46,20 +53,20 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
     while (std::getline(inputFile, line)) {
         std::istringstream iss(line);
         std::string name;
-        int chinese, math, english;
-
-        if (!(iss >> name >> chinese >> math >> english)) {
-            std::cout << "文件格式错误：" << line << std::endl;
-            continue;
+        iss >> name;
+        std::vector<int> scores;
+        int score;
+        while (iss >> score) {
+            scores.push_back(score);
         }
 
         // 查找学生并更新成绩
         bool found = false;
         for (auto& student : students) {
             if (student.getName() == name) {
-                student.setScore("语文", chinese);
-                student.setScore("数学", math);
-                student.setScore("英语", english);
+                for (int i = 0; i < objects.size(); i++) {
+                    student.setScore(objects[i], scores[i]);
+                }
                 found = true;
                 updatedStudents.push_back(name);
                 break;
@@ -68,9 +75,9 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
         if (!found) {
             // 添加学生
             Student newStudent(name);
-            newStudent.setScore("语文", chinese);
-            newStudent.setScore("数学", math);
-            newStudent.setScore("英语", english);
+            for (int i = 0; i < objects.size(); i++) {
+                newStudent.setScore(objects[i], scores[i]);
+            }
             students.push_back(newStudent);
             addedStudents.push_back(name);
         }
@@ -143,10 +150,11 @@ void GradeManager::displayGrades(){
         return;
     }
 
-    std::cout<<"姓名 ";
+    std::cout<<std::setw(8)<<"姓名 ";
     outputFile << "姓名 ";
-    for(const auto& object : default_scores) {
-        std::cout << object.first << " ";
+    if(students.size()==0){std::cout<<"无信息"<<std::endl;return;}
+    for(const auto& object : students[0].getScores()) {
+        std::cout <<std::setw(9)<< object.first << " ";
         outputFile << object.first << " ";
     }
 
@@ -154,11 +162,11 @@ void GradeManager::displayGrades(){
     outputFile << std::endl;
 
     for (auto& student : students) {
-        std::cout << student.getName() << " ";
+        std::cout <<std::setw(7)<< student.getName() << " ";
         outputFile << student.getName() << " ";
 
         for (const auto& scorePair : student.getScores()) {
-            std::cout << scorePair.second << " ";
+            std::cout <<std::setw(7)<< scorePair.second << " ";
             outputFile << scorePair.second << " ";
         }
 
