@@ -11,5 +11,5 @@ add_library(TimerPlugin SHARED
 set_target_properties(DefaultDataPlugin PROPERTIES OUTPUT_NAME "defaultdata")
 set_target_properties(TimerPlugin PROPERTIES OUTPUT_NAME "timer")
 
-set_target_properties(DefaultDataPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ../../bin/plugins)
-set_target_properties(TimerPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ../../bin/plugins)
+set_target_properties(DefaultDataPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/plugins)
+set_target_properties(TimerPlugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/plugins)

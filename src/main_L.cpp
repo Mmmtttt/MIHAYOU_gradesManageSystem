@@ -2,7 +2,7 @@
 #include "GradeManager/GradeManager.h"
 #include <dlfcn.h>
 //#include <windows.h>
-#include "../plugins/plugininterface.h"
+#include "./plugins/PluginInterface.h"
 
 // int main() {
 //     GradeManager gradeManager;
@@ -44,7 +44,7 @@ int main() {
 
     while (true) {
         int choice;
-        std::cout << std::endl<< std::endl<< std::endl<< std::endl;
+        std::cout << std::endl<< std::endl;
         std::cout << "1. 加载“寻找缺省数据模块”" << std::endl;
         std::cout << "2. 卸载“寻找缺省数据模块”" << std::endl;
         std::cout << "3. 加载“定时器模块”" << std::endl;
@@ -66,7 +66,7 @@ int main() {
 
         switch (choice) {
             case 1: {
-                libraryHandle1 = dlopen("./plugin/libdefaultdata.so", RTLD_LAZY);
+                libraryHandle1 = dlopen("./plugins/libdefaultdata.so", RTLD_LAZY);
                 // libraryHandle1 = LoadLibraryA("./plugin/libdefaultdata.dll");
                 if (!libraryHandle1) {
                     // std::cerr << "Failed to load libdefaultdata.so: " << dlerror() << std::endl;
@@ -98,7 +98,7 @@ int main() {
                 break;
             }
             case 3: {
-                libraryHandle2 = dlopen("./plugin/libtimer.so", RTLD_LAZY);
+                libraryHandle2 = dlopen("./plugins/libtimer.so", RTLD_LAZY);
                 // libraryHandle2 = LoadLibraryA("./plugin/libtimer.dll");
                 if (!libraryHandle2) {
                     //std::cerr << "Failed to load libtimer.so: " << dlerror() << std::endl;
@@ -133,7 +133,7 @@ int main() {
                 if (temp_obj1) {
                     temp_obj1->execute();
                 } else {
-                    std::cout << "libdefaultdata.dll is loaded." << std::endl;
+                    std::cout << "libdefaultdata.dll is not loaded." << std::endl;
                 }
                 break;
             }
@@ -141,19 +141,25 @@ int main() {
                 if (temp_obj2) {
                     temp_obj2->execute();
                 } else {
-                    std::cout << "libtimer.dll is loaded." << std::endl;
+                    std::cout << "libtimer.dll is not loaded." << std::endl;
                 }
                 break;
             }
             case 7:  {               
-                std::cout << "科目最高分：" << gradeManager.queryMaxScore() << std::endl;
-                std::cout << "科目最低分：" << gradeManager.queryMinScore() << std::endl;
+                for(auto object:default_scores){
+                    std::cout << object.first << ": ";
+                    std::cout << "最高分：" << gradeManager.queryMaxScore(object.first) << std::endl;
+                    std::cout << "最低分：" << gradeManager.queryMinScore(object.first) << std::endl;
+                }
                 break;
             }
             case 8: {
-                std::cout << "按成绩排序：" << std::endl;
-                gradeManager.sortByChineseScore();
-                gradeManager.displayGrades();
+                std::cout << "按成绩排序,请输入科目" ;
+                std::string subject;
+                std::cin >> subject;
+                std::cout <<std::endl;
+                gradeManager.sortByScore(subject);
+                //gradeManager.displayGrades();
                 break;
             }
             case 9: {
@@ -162,20 +168,22 @@ int main() {
                 break;
             }
             case 10: {
-                std::string name, subject;
-                int score;
-                std::cout << "输入姓名： ";
-                std::cin >> name;
-                std::cout << "输入科目： ";
-                std::cin >> subject;
-                std::cout << "输入成绩： ";
-                std::cin >> score;
-                gradeManager.modifyScore(name, subject, score);
+                std::cout << "修改成绩：" << std::endl;
+                gradeManager.modifyScore();
+                gradeManager.displayGrades();
                 break;
             }
             case 11: {
                 std::cout << "输入成绩：" << std::endl;
-                gradeManager.loadGradesFromFile("../grades.txt");
+                std::cout<<"选择输入方式: 1.手动  2.文件"<<std::endl;
+                int choice;
+                std::cin>>choice;
+                if(choice==1){
+                    gradeManager.inputGradesFromConsole();
+                    gradeManager.displayGrades();
+                }
+                else if(choice==2)
+                    gradeManager.loadGradesFromFile("../grades.txt");
                 break;
             }
             case 0:

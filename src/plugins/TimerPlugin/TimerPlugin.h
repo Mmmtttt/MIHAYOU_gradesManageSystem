@@ -4,7 +4,7 @@
 #include <chrono>
 #include <functional>
 #include <thread>
-#include "plugins/plugininterface.h"
+#include "../PluginInterface.h"
 #include "../../GradeManager/GradeManager.h"
 
 class TimerPlugin : public PluginInterface{

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "plugins/plugininterface.h"
+#include "../PluginInterface.h"
 #include "../../GradeManager/GradeManager.h"
 #include <string>
 

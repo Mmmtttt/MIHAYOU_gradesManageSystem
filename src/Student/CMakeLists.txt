@@ -1,4 +1,4 @@
-add_library(GradeManagementSystem
+add_library(Student
     Student.cpp
     Student.h
 )

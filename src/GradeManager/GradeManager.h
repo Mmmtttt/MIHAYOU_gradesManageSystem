@@ -5,19 +5,19 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include "Student/Student.h"
+#include "../Student/Student.h"
 
 class GradeManager {
 public:
     void inputGradesFromConsole();
     void loadGradesFromFile(const std::string& filename);
-    void updateGradesFromFile(const std::string& filename);
-    int queryMaxScore() const;
-    int queryMinScore() const;
-    void sortByChineseScore();
-    void displayGrades() const;
-    void displayAverageScores() const;
-    void modifyScore(const std::string& name, const std::string& subject, int score);
+    int queryMaxScore(const std::string& object);
+    int queryMinScore(const std::string& object);
+    void sortByScore(const std::string& object);
+    void displayGrades() ;
+    void displayAverageScores();
+    void modifyScore();
+    void InputGradesMenu(Student& student);
 
 private:
     std::vector<Student> students;
