@@ -23,8 +23,8 @@ if "%debug_mode%"=="d" (
 
 
 cd ..\bin
-cp plugins\libdefaultdata.lib C:\Windows\System32\libdefaultdata.lib
-cp plugins\libtimer.lib C:\Windows\System32\libtimer.lib
+copy plugins\libdefaultdata.dll C:\Windows\System32\libdefaultdata.dll
+copy plugins\libtimer.dll C:\Windows\System32\libtimer.dll
 
 .\GradeManagementSystem.exe
 
