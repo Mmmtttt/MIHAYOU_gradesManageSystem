@@ -41,7 +41,6 @@
         "system_error": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        //"terminal encoding": "UTF-8",
         "xfacet": "cpp",
         "xiosbase": "cpp",
         "xlocale": "cpp",
@@ -71,6 +70,12 @@
         "xlocmes": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "any": "cpp",
+        "condition_variable": "cpp",
+        "deque": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "variant": "cpp"
     }
 }

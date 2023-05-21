@@ -195,6 +195,7 @@ int main() {
             default:
                 std::cout << "请重新输入." << std::endl;
         }
+        std::cout<<"输入回车继续"<<std::endl;
         getchar();
         getchar();
         system("cls");

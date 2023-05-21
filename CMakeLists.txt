@@ -32,9 +32,9 @@ endif()
 # 设置构建输出路径
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 # 设置编译输出路径为bin目录下的plugin文件夹
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/plugins)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/plugins)
 
-set_target_properties(GradeManagementSystem PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
+set_target_properties(GradeManagementSystem PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 
 # 添加子目录
@@ -42,9 +42,11 @@ add_subdirectory(src/Student)
 add_subdirectory(src/GradeManager)
 add_subdirectory(src/plugins)
 
+
+
 # 添加静态基础链接库
 target_link_libraries(GradeManagementSystem Student GradeManager)
 
 # 添加测试目录
-#add_subdirectory(test)
+add_subdirectory(test)
 
