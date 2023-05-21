@@ -5,10 +5,29 @@ project(GradeManagementSystem)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 添加可执行文件
-add_executable(GradeManagementSystem
-  src/main_W.cpp
-)
+#debug
+#set(CMAKE_BUILD_TYPE DEBUG)
+
+
+if(CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
+
+  add_executable(GradeManagementSystem
+    src/main_L.cpp
+  )
+
+elseif(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+  # 添加可执行文件
+  add_executable(GradeManagementSystem
+    src/main_W.cpp
+  )
+
+else()
+ 
+	message("current platform: unkonw ")
+ 
+endif()
+
+
 
 # 设置构建输出路径
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
