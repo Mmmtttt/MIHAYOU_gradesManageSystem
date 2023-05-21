@@ -41,17 +41,24 @@ public: //功能接口
         std::cout <<std::endl;
         sortByScore(subject);
     }
-    void callback_sortByScores(){
+    virtual void callback_sortByScores(){
         if(callback_sortByScores_varaible==""){
             std::cout<<"未设置科目"<<std::endl;
             return;
         }
         sortByScore(callback_sortByScores_varaible);
     }
-    std::vector<std::string> objects;
-    std::vector<Student> getStudents() const;
-    std::string callback_sortByScores_varaible;
+    GradeManager(){
+        objects.push_back("语文");
+        objects.push_back("数学");
+        objects.push_back("英语");
+    }
+    std::vector<Student>& getStudents();
 
+    
+    std::vector<std::string> objects;
+    std::string callback_sortByScores_varaible;
+    
 private:
     std::vector<Student> students;
 };

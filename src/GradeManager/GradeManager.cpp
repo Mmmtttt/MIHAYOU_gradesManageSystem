@@ -225,17 +225,17 @@ void GradeManager::modifyScore() {
 }
 
 void GradeManager::InputGradesMenu(Student& student) {
-    for(auto& scorePair : student.getScores()) {
-        std::cout <<"科目: "<< scorePair.first << "   初始成绩(缺省值为-1): " << scorePair.second << " 输入新成绩(输入回车跳过): ";
+    for(auto& object : objects) {
+        std::cout <<"科目: "<< object << "   初始成绩(缺省值为-1): " << student.getScore(object) << " 输入新成绩(输入回车跳过): ";
         int score;
         std::cin>>score;
         if(score <0 || score >100) 
             continue;
-        scorePair.second = score;
+        student.setScore(object, score);
     
     }
 }
 
-std::vector<Student> GradeManager::getStudents() const {
+std::vector<Student>& GradeManager::getStudents(){
     return students;
 }
