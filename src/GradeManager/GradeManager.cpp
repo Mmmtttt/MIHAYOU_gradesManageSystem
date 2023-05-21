@@ -56,8 +56,19 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
         iss >> name;
         std::vector<int> scores;
         int score;
-        while (iss >> score) {
-            scores.push_back(score);
+        std::string scoreStr;
+        while (iss >> scoreStr) {
+            if (scoreStr == "缺省") {
+                scores.push_back(-1); // 将 "(缺省)" 转换为 -1
+            } else {
+                int score;
+                try {
+                    score = std::stoi(scoreStr);
+                } catch (const std::exception& e) {
+                    score = -1; // 无效的输入，将成绩设置为 -1
+                }
+                scores.push_back(score);
+            }
         }
 
         // 查找学生并更新成绩
@@ -150,11 +161,11 @@ void GradeManager::displayGrades(){
         return;
     }
 
-    std::cout<<std::setw(8)<<"姓名 ";
+    std::cout<<"姓名 ";
     outputFile << "姓名 ";
     if(students.size()==0){std::cout<<"无信息"<<std::endl;return;}
     for(const auto& object : students[0].getScores()) {
-        std::cout <<std::setw(9)<< object.first << " ";
+        std::cout <<std::setw(12)<< object.first;
         outputFile << object.first << " ";
     }
 
@@ -162,11 +173,15 @@ void GradeManager::displayGrades(){
     outputFile << std::endl;
 
     for (auto& student : students) {
-        std::cout <<std::setw(7)<< student.getName() << " ";
+        std::cout <<student.getName();
         outputFile << student.getName() << " ";
 
         for (const auto& scorePair : student.getScores()) {
-            std::cout <<std::setw(7)<< scorePair.second << " ";
+            if(scorePair.second==-1){
+                std::cout <<std::setw(12)<<"缺省";
+            }
+            else std::cout <<std::setw(10)<< scorePair.second;
+            
             outputFile << scorePair.second << " ";
         }
 
@@ -225,14 +240,28 @@ void GradeManager::modifyScore() {
 }
 
 void GradeManager::InputGradesMenu(Student& student) {
-    for(auto& object : objects) {
-        std::cout <<"科目: "<< object << "   初始成绩(缺省值为-1): " << student.getScore(object) << " 输入新成绩(输入回车跳过): ";
+    getchar();
+    for (auto& object : objects) {
+        std::cout << "科目: " << object << "   初始成绩(缺省值为-1): " << student.getScore(object);
+        std::cout << " 输入新成绩(输入回车跳过): ";
+
+        std::string input;
+        std::getline(std::cin, input);
+
+        if (input.empty()) {
+            continue; // 用户输入回车，保持初始值
+        }
+
         int score;
-        std::cin>>score;
-        if(score <0 || score >100) 
-            continue;
-        student.setScore(object, score);
-    
+        try {
+            score = std::stoi(input);
+        } catch (const std::exception& e) {
+            continue; // 无效的输入，保持初始值
+        }
+
+        if (score >= 0 && score <= 100) {
+            student.setScore(object, score);
+        }
     }
 }
 

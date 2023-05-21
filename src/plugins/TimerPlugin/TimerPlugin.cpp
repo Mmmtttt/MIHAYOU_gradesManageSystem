@@ -23,7 +23,7 @@ void TimerPlugin::stop() {
 void TimerPlugin::timerLoop() {
     while (running) {
         std::this_thread::sleep_for(std::chrono::seconds(interval));
-        if (running) {
+        if (running&&callback) {
             callback();
         }
     }

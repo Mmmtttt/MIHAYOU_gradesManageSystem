@@ -20,6 +20,11 @@ if "%debug_mode%"=="d" (
     make
 )
 
+
+
 cd ..\bin
+cp plugins\libdefaultdata.lib C:\Windows\System32\libdefaultdata.lib
+cp plugins\libtimer.lib C:\Windows\System32\libtimer.lib
+
 .\GradeManagementSystem.exe
 

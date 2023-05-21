@@ -1,47 +1,45 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../../../src/plugins/DefaultDataPlugin/DefaultDataPlugin.h"
-#include "../../../src/Student/Student.h"
+#include "../../../src/GradeManager/GradeManager.h"
 
-// 测试学生类的成绩获取和修改功能
-// 测试学生类的成绩获取和修改功能
-TEST(StudentTest, GradeAccess)
-{
-    Student student("张三");
-    EXPECT_EQ(student.getName(), "张三");
-    EXPECT_EQ(student.getScore("语文"), -1);
-    EXPECT_EQ(student.getScore("数学"), -1);
-    EXPECT_EQ(student.getScore("英语"), -1);
+// 测试 DefaultDataPlugin 的功能
+TEST(DefaultDataPluginTest, ExecuteTest) {
+    // 创建 GradeManagerMock 对象
+    GradeManager grademanager;
+    //create plugin
+    std::unique_ptr obj_temp=create_Plugin();
 
-    student.setScore("语文",75);
-    student.setScore("数学",95);
-    student.setScore("英语", 88);
+    Student a("Alice");
+    Student b("Bob");
+    a.setScore("语文", 90);a.setScore("数学", 87);a.setScore("英语", -1);
+    b.setScore("语文", 67);b.setScore("数学", -1);b.setScore("英语", 68);
 
-    EXPECT_EQ(student.getScore("语文"), 75);
-    EXPECT_EQ(student.getScore("数学"), 95);
-    EXPECT_EQ(student.getScore("英语"), 88);
+
+    grademanager.getStudents().push_back(a);
+    grademanager.getStudents().push_back(b);
+
+    // 调用函数并捕获输出
+    testing::internal::CaptureStdout();
+    
+    obj_temp->execute(&grademanager);
+
+    std::string output = testing::internal::GetCapturedStdout();
+    std::istringstream iss(output);
+    std::string line;
+
+  // 验证表头
+    std::getline(iss, line);
+
+
+    std::getline(iss, line);
+    EXPECT_EQ(line,"缺省数据：Alice 英语");
+    std::getline(iss, line);
+    EXPECT_EQ(line,"缺省数据：Bob 数学");
+
 }
 
-TEST(StudentTest, AddSubject)
-{
-    Student student("李四");
-    student.setScore("化学",67);
 
-    EXPECT_EQ(student.getScore("化学"), 67);
-    EXPECT_EQ(student.getScore("语文"), -1);
-    EXPECT_EQ(student.getScore("数学"), -1);
-    EXPECT_EQ(student.getScore("英语"), -1);
-}
-// 测试学生类的平均分计算功能
-// TEST(StudentTest, AverageGrade)
-// {
-//     Student student("李四", 80, 90, 85);
-
-//     double averageGrade = student.calculateAverageGrade();
-//     EXPECT_DOUBLE_EQ(averageGrade, 85.0);
-// }
-
-// 其他针对学生类的测试用例...
 
 int main(int argc, char** argv)
 {

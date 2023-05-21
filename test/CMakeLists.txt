@@ -34,13 +34,11 @@ target_link_libraries(DefaultDataPluginTests
   gtest_main
   gmock_main
   DefaultDataPlugin
-  Student
 )
 target_link_libraries(TimerPluginTests
   gtest_main
   gmock_main
   TimerPlugin
-  Student
 )
 
 

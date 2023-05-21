@@ -41,7 +41,7 @@ public: //功能接口
         std::cout <<std::endl;
         sortByScore(subject);
     }
-    virtual void callback_sortByScores(){
+    void callback_sortByScores(){
         if(callback_sortByScores_varaible==""){
             std::cout<<"未设置科目"<<std::endl;
             return;
@@ -53,7 +53,9 @@ public: //功能接口
         objects.push_back("数学");
         objects.push_back("英语");
     }
-    std::vector<Student>& getStudents();
+
+
+    std::vector<Student>& getStudents();//testing function
 
     
     std::vector<std::string> objects;

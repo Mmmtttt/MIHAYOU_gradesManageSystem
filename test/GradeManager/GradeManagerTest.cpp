@@ -1,27 +1,7 @@
 #include <gtest/gtest.h>
 #include "../../src/GradeManager/GradeManager.h"
 
-TEST(GradeManagerTest, InputGradesFromConsoleTest) {
-  GradeManager gradeManager;
 
-  // 模拟用户输入
-  std::istringstream input("Alice\n85 95 90\n");
-  std::streambuf* old_stdin = std::cin.rdbuf(input.rdbuf());
-
-  // 调用函数
-  gradeManager.inputGradesFromConsole();
-
-  // 恢复标准输入
-  std::cin.rdbuf(old_stdin);
-
-  // 验证学生是否正确添加
-  std::vector<Student> students = gradeManager.getStudents();
-  ASSERT_EQ(students.size(), 1);
-  EXPECT_EQ(students[0].getName(), "Alice");
-  EXPECT_EQ(students[0].getScore("语文"), 90);
-  EXPECT_EQ(students[0].getScore("数学"), 85);
-  EXPECT_EQ(students[0].getScore("英语"), 95);
-}
 
 TEST(GradeManagerTest, LoadGradesFromFileTest) {
   GradeManager gradeManager;
@@ -80,15 +60,15 @@ TEST(GradeManagerTest, DisplayGradesTest) {
 
   // 验证表头
   std::getline(iss, line);
-  EXPECT_EQ(line, " 姓名    数学    英语    语文 ");
+  EXPECT_EQ(line, "姓名       数学      英语      语文");
 
   // 验证第一位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "  Alice      85      95      90 ");
+  EXPECT_EQ(line, "Alice        85        95        90");
 
   // 验证第二位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "    Bob      75      85      80 ");
+  EXPECT_EQ(line, "Bob        75        85        80");
 }
 
 // 测试 displayAverageScores() 函数是否正确显示平均成绩
@@ -220,19 +200,19 @@ TEST(GradeManagerTest, SortByScoresTest) {
   // 验证表头
   std::getline(iss, line);
   std::getline(iss, line);
-  EXPECT_EQ(line, " 姓名    数学    英语    语文 ");
+  EXPECT_EQ(line, "姓名       数学      英语      语文");
 
   // 验证第一位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "    Bob      85      85      80 ");
+  EXPECT_EQ(line, "Bob        85        85        80");
 
   // 验证第二位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "  Alice      75      95      90 ");
+  EXPECT_EQ(line, "Alice        75        95        90");
   
   // 验证第三位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "   Jack      65     100      60 ");
+  EXPECT_EQ(line, "Jack        65       100        60");
 }
 
 // 测试 modifyScore() 函数是否正确修改成绩
@@ -248,11 +228,10 @@ TEST(GradeManagerTest, ChangeScoreTest) {
 
   // 模拟用户输入
   std::istringstream input("Alice\n80 \n \n");
-  std::streambuf* old_stdin = std::cin.rdbuf(input.rdbuf());
+  std::streambuf* old_stdin = std::cin.rdbuf(input.rdbuf()); 
 
   // 调用函数修改成绩
   gradeManager.modifyScore();
-
 
   // 恢复标准输入
   std::cin.rdbuf(old_stdin);

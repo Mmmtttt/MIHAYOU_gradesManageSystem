@@ -18,10 +18,10 @@ public:
     void start();
     void stop();
 
-    std::function<void()> test_getCallback() const{return callback;}//用于测试的函数
+    //std::function<void()> test_getCallback() const{return callback;}//用于测试的函数
     std::function<void()>& test_setCallback(){return callback;}//用于测试的函数
-    void test_setInterval(int interval){this->interval = interval;}//用于测试的函数
-    void test_execute(GradeManager* gradeManager){execute(gradeManager);}//用于测试的函数
+    int& test_setInterval(){return interval;}//用于测试的函数
+    //void test_execute(GradeManager* gradeManager){execute(gradeManager);}//用于测试的函数
 private:
     int interval;
     std::function<void()> callback;
