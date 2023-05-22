@@ -89,11 +89,10 @@ int main() {
             }
             case 2: {
                 if (libraryHandle1) {
-                    
-                    //dlclose(libraryHandle1);
+                    temp_obj1.reset();
+                    dlclose(libraryHandle1);
                     // FreeLibrary(libraryHandle1);
                     libraryHandle1=nullptr;
-                    temp_obj1.reset();
                     std::cout << "libdefaultdata.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libdefaultdata.dll is not loaded." << std::endl;
@@ -121,11 +120,11 @@ int main() {
             }
             case 4: {
                 if (libraryHandle2) {
-                    
-                    //dlclose(libraryHandle2);
+                    temp_obj2.reset();
+                    dlclose(libraryHandle2);
                     // FreeLibrary(libraryHandle2);
                     libraryHandle2=nullptr;
-                    temp_obj2.reset();
+                    
                     std::cout << "libtimer.dll unloaded." << std::endl;
                 } else {
                     std::cout << "libtimer.dll is not loaded." << std::endl;

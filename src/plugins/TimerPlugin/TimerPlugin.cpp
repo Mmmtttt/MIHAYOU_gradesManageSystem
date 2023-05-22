@@ -16,6 +16,7 @@ void TimerPlugin::stop() {
         running = false;
         if (timerThread.joinable()) {
             timerThread.join();
+            timerThread.~thread();
         }
     }
 }

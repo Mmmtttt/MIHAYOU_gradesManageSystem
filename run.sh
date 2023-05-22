@@ -18,5 +18,5 @@ else
     make
 fi
 
-cd ..\bin
-.\GradeManagementSystem.out
+cd ../bin
+./GradeManagementSystem
