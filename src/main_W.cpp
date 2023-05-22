@@ -3,6 +3,15 @@
 //#include <dlfcn.h>
 #include <windows.h>
 #include "./plugins/PluginInterface.h"
+#include <iomanip>
+
+// 定义控制台颜色
+
+const int GREEN = 10;
+const int YELLOW = 14;
+const int RED = 12;
+const int RESET = 7;
+
 
 #define inputFile "../input.txt"
 
@@ -47,27 +56,42 @@ int main() {
 
 
     while (true) {
-        int choice;
-        std::cout << "1. 加载“寻找缺省数据模块”" << std::endl;
-        std::cout << "2. 卸载“寻找缺省数据模块”" << std::endl;
-        std::cout << "3. 加载“定时器模块”" << std::endl;
-        std::cout << "4. 卸载“定时器模块”" << std::endl;
-        std::cout << "5. 寻找缺省数据" << std::endl;
-        std::cout << "6. 设置定时器" << std::endl;
-        std::cout << "7. 查询科目最高分与最低分" << std::endl;
-        std::cout << "8. 按成绩排序" << std::endl;
-        std::cout << "9. 各科目平均分" << std::endl;
-        std::cout << "10. 修改成绩" << std::endl;
-        std::cout << "11. 输入成绩" << std::endl;
-        std::cout << "12. 显示所有信息"<<std::endl;
-        std::cout << "0. Quit" << std::endl;
+        
+        // Windows控制台颜色设置
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+        // 边框颜色
+        SetConsoleTextAttribute(hConsole, 11); // 亮青色
+        std::cout << "╔══════════════════════════════╗" << std::endl;
+        // 字体颜色
+        SetConsoleTextAttribute(hConsole, 14); // 黄色
+        std::cout << "║         成绩管理系统         ║" << std::endl;
+        // 边框颜色
+        SetConsoleTextAttribute(hConsole, 11); // 亮青色
+        std::cout << "╠══════════════════════════════╣" << std::endl;
+        SetConsoleTextAttribute(hConsole, 14); // 黄色
+
+        std::cout <<"║ 1.  加载“寻找缺省数据模块” ║" <<std::endl;
+        std::cout <<"║ 2.  卸载“寻找缺省数据模块” ║" <<std::endl;
+        std::cout <<"║ 3.  加载“定时器模块”       ║" <<std::endl;
+        std::cout << "║ 4.  卸载“定时器模块”       ║" <<std::endl;
+        std::cout << "║ 5.  寻找缺省数据             ║" <<std::endl;
+        std::cout << "║ 6.  设置定时器               ║" <<std::endl;
+        std::cout << "║ 7.  查询科目最高分与最低分   ║" <<std::endl;
+        std::cout << "║ 8.  按成绩排序               ║" <<std::endl;
+        std::cout << "║ 9.  各科目平均分             ║" <<std::endl;
+        std::cout << "║ 10. 修改成绩                 ║" <<std::endl;
+        std::cout << "║ 11. 输入成绩                 ║" <<std::endl;
+        std::cout << "║ 12. 显示所有信息             ║" <<std::endl;
+        std::cout << "║ 0.  Quit                     ║" <<std::endl;
+        std::cout << "╠══════════════════════════════╣" << std::endl;
+
+        SetConsoleTextAttribute(hConsole, 7); // 恢复默认颜色
         std::cout << "输入选项： ";
         std::cout << std::endl;
 
+        int choice;
         std::cin >> choice;
-
-        std::cout << std::endl;
-
         switch (choice) {
             case 1: {
                 //libHandle = dlopen("./plugin/libdefaultdata.so", RTLD_LAZY);
@@ -192,8 +216,8 @@ int main() {
             }
             case 0:
                 return 0;
-            default:
-                std::cout << "请重新输入." << std::endl;
+            default:{std::cout << "请重新输入." << std::endl;break;}
+                
         }
         std::cout<<"输入回车继续"<<std::endl;
         getchar();

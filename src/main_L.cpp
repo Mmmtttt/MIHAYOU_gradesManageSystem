@@ -6,6 +6,11 @@
 
 #define inputFile "../input.txt"
 
+const std::string GREEN = "\033[1;32m";
+const std::string YELLOW = "\033[1;33m";
+const std::string RED = "\033[1;31m";
+const std::string RESET = "\033[0m";
+
 // int main() {
 //     GradeManager gradeManager;
 
@@ -47,19 +52,33 @@ int main() {
 
     while (true) {
         int choice;
-        std::cout << "1. 加载“寻找缺省数据模块”" << std::endl;
-        std::cout << "2. 卸载“寻找缺省数据模块”" << std::endl;
-        std::cout << "3. 加载“定时器模块”" << std::endl;
-        std::cout << "4. 卸载“定时器模块”" << std::endl;
-        std::cout << "5. 寻找缺省数据" << std::endl;
-        std::cout << "6. 设置定时器" << std::endl;
-        std::cout << "7. 查询科目最高分与最低分" << std::endl;
-        std::cout << "8. 按成绩排序" << std::endl;
-        std::cout << "9. 各科目平均分" << std::endl;
-        std::cout << "10. 修改成绩" << std::endl;
-        std::cout << "11. 输入成绩" << std::endl;
-        std::cout << "12. 显示所有信息"<<std::endl;
-        std::cout << "0. Quit" << std::endl;
+        // Unix/Linux控制台颜色设置
+        const std::string GREEN = "\033[1;32m";
+        const std::string YELLOW = "\033[1;33m";
+        const std::string RESET = "\033[0m";
+
+        // 边框颜色
+        std::cout << GREEN << "╔══════════════════════════════╗" << RESET << std::endl;
+        // 字体颜色
+        std::cout << YELLOW << "║         成绩管理系统         ║" << RESET << std::endl;
+        // 边框颜色
+        std::cout << GREEN << "╠══════════════════════════════╣" << RESET << std::endl;
+        // ...
+        std::cout << YELLOW << "║ 1.  加载“寻找缺省数据模块”   ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 2.  卸载“寻找缺省数据模块”   ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 3.  加载“定时器模块”         ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 4.  卸载“定时器模块”         ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 5.  寻找缺省数据             ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 6.  设置定时器               ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 7.  查询科目最高分与最低分   ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 8.  按成绩排序               ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 9.  各科目平均分             ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 10. 修改成绩                 ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 11. 输入成绩                 ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 12. 显示所有信息             ║" << RESET << std::endl;
+        std::cout << YELLOW << "║ 0.  Quit                     ║" << RESET << std::endl;
+        std::cout << YELLOW << "╠══════════════════════════════╣" << RESET << std::endl;
+
         std::cout << "输入选项： ";
         std::cout << std::endl;
 

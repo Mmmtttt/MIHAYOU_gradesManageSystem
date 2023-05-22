@@ -60,15 +60,15 @@ TEST(GradeManagerTest, DisplayGradesTest) {
 
   // 验证表头
   std::getline(iss, line);
-  EXPECT_EQ(line, "姓名       数学      英语      语文");
+  EXPECT_EQ(line, "      姓名      语文      数学      英语");
 
   // 验证第一位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "Alice        85        95        90");
+  EXPECT_EQ(line, "       Alice        90        85        95");
 
   // 验证第二位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "Bob        75        85        80");
+  EXPECT_EQ(line, "         Bob        80        75        85");
 }
 
 // 测试 displayAverageScores() 函数是否正确显示平均成绩
@@ -200,19 +200,19 @@ TEST(GradeManagerTest, SortByScoresTest) {
   // 验证表头
   std::getline(iss, line);
   std::getline(iss, line);
-  EXPECT_EQ(line, "姓名       数学      英语      语文");
+  EXPECT_EQ(line, "      姓名      语文      数学      英语");
 
   // 验证第一位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "Bob        85        85        80");
+  EXPECT_EQ(line, "         Bob        80        85        85");
 
   // 验证第二位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "Alice        75        95        90");
+  EXPECT_EQ(line, "       Alice        90        75        95");
   
   // 验证第三位学生的成绩
   std::getline(iss, line);
-  EXPECT_EQ(line, "Jack        65       100        60");
+  EXPECT_EQ(line, "        Jack        60        65       100");
 }
 
 // 测试 modifyScore() 函数是否正确修改成绩

@@ -51,6 +51,7 @@ void GradeManager::loadGradesFromFile(const std::string& filename) {
     std::vector<std::string> addedStudents;
 
     while (std::getline(inputFile, line)) {
+        if (line.empty()) {continue;} // 跳过空行
         std::istringstream iss(line);
         std::string name;
         iss >> name;
@@ -161,28 +162,32 @@ void GradeManager::displayGrades(){
         return;
     }
 
-    std::cout<<"姓名 ";
+    std::cout<<std::setw(12)<<"姓名";
     outputFile << "姓名 ";
     if(students.size()==0){std::cout<<"无信息"<<std::endl;return;}
-    for(const auto& object : students[0].getScores()) {
-        std::cout <<std::setw(12)<< object.first;
-        outputFile << object.first << " ";
+    for(const auto& object : objects) {
+        std::cout <<std::setw(12)<< object;
+        outputFile << object << " ";
     }
 
     std::cout<<std::endl;  
     outputFile << std::endl;
 
     for (auto& student : students) {
-        std::cout <<student.getName();
+        std::cout<<std::setw(12)<<student.getName();
         outputFile << student.getName() << " ";
 
-        for (const auto& scorePair : student.getScores()) {
-            if(scorePair.second==-1){
+        for (const auto& object : objects) {
+            auto it = student.getScores().find(object);
+            if (it == student.getScores().end()) student.setScore(object, -1); // 未找到该科目成绩，设置为 -1
+
+            int score=student.getScore(object);
+            if(score==-1){
                 std::cout <<std::setw(12)<<"缺省";
             }
-            else std::cout <<std::setw(10)<< scorePair.second;
+            else std::cout <<std::setw(10)<< score;
             
-            outputFile << scorePair.second << " ";
+            outputFile << score << " ";
         }
 
         std::cout << std::endl;
