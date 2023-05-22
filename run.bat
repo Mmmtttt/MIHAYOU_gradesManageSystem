@@ -14,10 +14,10 @@ set /p debug_mode="Enter 'd' for debug mode, or any other key for release mode: 
 
 if "%debug_mode%"=="d" (
     cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
-    make
+    mingw32-make
 ) else (
     cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-    make
+    mingw32-make
 )
 
 
